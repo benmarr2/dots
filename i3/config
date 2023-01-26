@@ -1,5 +1,6 @@
 # basics
-font pango: Noto Sans Regular 10
+# font pango: Noto Sans Regular 10
+font pango: JetBrains Mono Medium 10
 set $mod Mod4
 workspace_layout default
 new_window pixel 1
