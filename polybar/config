@@ -30,8 +30,9 @@ monitor = ${env:MONITOR:DP0}
 width = 100%
 height = 24pt
 radius = 6
-
 ; dpi = 96
+
+font-0 = JetBrainsMono Nerd Font
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -49,9 +50,10 @@ module-margin = 1
 separator = |
 separator-foreground = ${colors.disabled}
 
-font-0 = monospace;2
+; font-0 = monospace;2
 
-modules-left = i3 xwindow
+modules-left = i3 xwindow 
+modules-center = spotify previous playpause next
 modules-right = filesystem pulseaudio xkeyboard memory cpu wlan eth date
 
 cursor-click = pointer
@@ -62,6 +64,7 @@ enable-ipc = true
 ; tray-position = right
 
 ; wm-restack = generic
+
 ; wm-restack = bspwm
 wm-restack = i3
 
@@ -87,9 +90,9 @@ module-margin = 1
 separator = |
 separator-foreground = ${colors.disabled}
 
-font-0 = monospace;2
+font-0 = JetBrainsMono Nerd Font
 
-modules-left = i3 xwindow
+modules-left = i3 xwindow 
 modules-right = pulseaudio memory cpu date
 
 cursor-click = pointer
@@ -182,3 +185,41 @@ screenchange-reload = true
 pseudo-transparency = true
 
 ; vim:ft=dosini
+[module/previous]
+type = custom/ipc
+format-font = 1
+; Default
+hook-0 = echo ""
+; When spotify active
+hook-1 = echo ""
+click-left = "spotifyctl -q previous"
+
+
+[module/next]
+type = custom/ipc
+format-font = 1
+; Default
+hook-0 = echo ""
+; When spotify active
+hook-1 = echo ""
+click-left = "spotifyctl -q next"
+
+
+[module/playpause]
+type = custom/ipc
+format-font = 0
+; Default
+hook-0 = echo "󰓗"
+; Playing
+hook-1 = echo ""
+; Paused
+hook-2 = echo ""
+click-left = "spotifyctl -q playpause"
+
+
+[module/spotify]
+type = custom/ipc
+; Default
+hook-0 = echo ""
+; Playing/paused show song name and artist
+hook-1 = spotifyctl -q status --format '%artist%: %title%'
