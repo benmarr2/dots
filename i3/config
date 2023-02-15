@@ -206,14 +206,15 @@ workspace $ws10 output HDMI-1
 # For modifications, it can be copied to ~/.config/picom/picom.conf or ~/.config/picom.conf
 # install picom package (yay -S picom)
 # start using default config 
-#exec_always --no-startup-id picom -b
-#
-# for custom config:
-#exec_always --no-startup-id picom --config  ~/.config/picom.conf
+exec_always --no-startup-id picom -b
+
 
 exec_always --no-startup-id ~/.config/polybar/launch.sh
 exec_always --no-startup-id ~/.screenlayout/dual_monitors.sh
+exec_always --no-startup-id ~/repos/
+
 exec --no-startup-id nitrogen --restore
+
 
 ######################################
 # color settings for bar and windows #
@@ -246,10 +247,10 @@ client.urgent		    	$urgentred	$urgentred	$white		$yellowbrown	$yellowbrown
 
 ## rofi bindings fancy application menu ($mod+d /F9 optional disabled)
 
-bindsym $mod+d exec rofi -modi drun -show drun \
+bindsym $mod+d exec rofi -modi drun -show drun -show-icons \
 		-config ~/.config/rofi/rofidmenu.rasi
 
 
-bindsym $mod+t exec rofi -show window \
+bindsym $mod+p exec rofi -show power-menu -modi power-menu:rofi-power-menu\
 		-config ~/.config/rofi/rofidmenu.rasi
 

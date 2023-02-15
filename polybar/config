@@ -32,7 +32,8 @@ height = 24pt
 radius = 6
 ; dpi = 96
 
-font-0 = JetBrainsMono Nerd Font
+font-0 = FiraCode Nerd Font Mono
+font-2 = Weather Icons:size=12;0
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -54,7 +55,7 @@ separator-foreground = ${colors.disabled}
 
 modules-left = i3 xwindow 
 modules-center = spotify previous playpause next
-modules-right = filesystem pulseaudio xkeyboard memory cpu wlan eth date
+modules-right = pulseaudio  memory cpu xkeyboard weather date 
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -72,7 +73,7 @@ wm-restack = i3
 monitor = ${env:MONITOR:HDMI1}
 width = 100%
 height = 18pt
-radius = 6
+radius = 10
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -93,7 +94,7 @@ separator-foreground = ${colors.disabled}
 font-0 = JetBrainsMono Nerd Font
 
 modules-left = i3 xwindow 
-modules-right = pulseaudio memory cpu date
+modules-right = pulseaudio memory cpu
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -135,7 +136,7 @@ label-unmounted-foreground = ${colors.disabled}
 [module/pulseaudio]
 type = internal/pulseaudio
 
-format-volume-prefix = "VOL "
+format-volume-prefix = ""
 format-volume-prefix-foreground = ${colors.primary}
 format-volume = <label-volume>
 
@@ -143,6 +144,8 @@ label-volume = %percentage%%
 
 label-muted = muted
 label-muted-foreground = ${colors.disabled}
+label-volume-padding-left = 1
+click-right = pavucontrol
 
 [module/xkeyboard]
 type = internal/xkeyboard
@@ -159,26 +162,29 @@ label-indicator-background = ${colors.secondary}
 [module/memory]
 type = internal/memory
 interval = 2
-format-prefix = "RAM "
+format-prefix = ""
 format-prefix-foreground = ${colors.primary}
 label = %percentage_used:2%%
+format-prefix-padding-right = 1
 
 [module/cpu]
 type = internal/cpu
 interval = 2
-format-prefix = "CPU "
+format-prefix = ""
 format-prefix-foreground = ${colors.primary}
 label = %percentage:2%%
+format-prefix-padding-right = 1 
+
 
 [module/date]
 type = internal/date
 interval = 1
 
-date = %H:%M
-date-alt = %Y-%m-%d %H:%M:%S
+date = %A %d %B %Y %H:%M:%S
 
 label = %date%
 label-foreground = ${colors.primary}
+label-margin-right = 1
 
 [settings]
 screenchange-reload = true
@@ -209,7 +215,7 @@ click-left = "spotifyctl -q next"
 type = custom/ipc
 format-font = 0
 ; Default
-hook-0 = echo "󰓗"
+hook-0 = echo ""
 ; Playing
 hook-1 = echo ""
 ; Paused
@@ -223,3 +229,10 @@ type = custom/ipc
 hook-0 = echo ""
 ; Playing/paused show song name and artist
 hook-1 = spotifyctl -q status --format '%artist%: %title%'
+
+[module/weather]
+type = custom/script
+exec = ~/repos/polybar-forecast/polybar-forecast-linux-x86_64
+exec-if = ping openweathermap.org -c 1
+interval = 600
+label-font = 3

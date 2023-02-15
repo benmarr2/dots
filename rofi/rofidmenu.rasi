@@ -2,7 +2,7 @@ configuration {
   display-drun: "Applications:";
   display-window: "Windows:";
   drun-display-format: "{name}";
-  font: "JetBrains Mono Medium 10";
+  font: "JetBrains Mono Medium 12";
   modi: "window,run,drun,emoji,calc";
 }
 
@@ -24,7 +24,7 @@ configuration {
 }
 
 window {
-  width: 30%;
+  width: 40%;
 }
 
 element {
@@ -42,7 +42,7 @@ element-text {
 }
 
 element-icon {
-  size: 14;
+  size: 18;
   padding: 0 10 0 0;
 }
 
