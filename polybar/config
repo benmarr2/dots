@@ -17,22 +17,23 @@
 ;==========================================================
 
 [colors]
-background = #090B10
+background = #0d1117
 background-alt = #0F111A
 foreground = #C5C8C6
-primary = #84ABE1
-secondary = #617CA5
-alert = #A54242
+primary = #FF9E64
+secondary = #FFFFFF
+alert = #EF738A
 disabled = #707880
+aparagus = #9ECE6A
 
 [bar/primary]
 monitor = ${env:MONITOR:DP0}
 width = 100%
 height = 24pt
-radius = 6
+ 
 ; dpi = 96
 
-font-0 = FiraCode Nerd Font Mono
+font-0 = JetBrainsMono Nerd Font
 font-2 = Weather Icons:size=12;0
 
 background = ${colors.background}
@@ -40,8 +41,7 @@ foreground = ${colors.foreground}
 
 line-size = 3pt
 
-border-size = 4pt
-border-color = #00000000
+
 
 padding-left = 0
 padding-right = 1
@@ -55,7 +55,7 @@ separator-foreground = ${colors.disabled}
 
 modules-left = i3 xwindow 
 modules-center = spotify previous playpause next
-modules-right = pulseaudio  memory cpu xkeyboard weather date 
+modules-right = pulseaudio  memory cpu xkeyboard weather date power
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -73,15 +73,11 @@ wm-restack = i3
 monitor = ${env:MONITOR:HDMI1}
 width = 100%
 height = 18pt
-radius = 10
 
 background = ${colors.background}
 foreground = ${colors.foreground}
 
 line-size = 3pt
-
-border-size = 4pt
-border-color = #00000000
 
 padding-left = 0
 padding-right = 1
@@ -94,7 +90,8 @@ separator-foreground = ${colors.disabled}
 font-0 = JetBrainsMono Nerd Font
 
 modules-left = i3 xwindow 
-modules-right = pulseaudio memory cpu
+
+modules-right = pulseaudio  memory cpu xkeyboard weather date 
 
 cursor-click = pointer
 cursor-scroll = ns-resize
@@ -114,8 +111,7 @@ enable-scroll = false
 wrapping-scroll = false
 reverse-scroll = false
 fuzzy-match = true
-label-focused-foreground = ${colors.secondary}
-
+label-focused-foreground = ${colors.aparagus}
 
 
 [module/xwindow]
@@ -180,7 +176,7 @@ format-prefix-padding-right = 1
 type = internal/date
 interval = 1
 
-date = %A %d %B %Y %H:%M:%S
+date = %d %B %Y %H:%M:%S
 
 label = %date%
 label-foreground = ${colors.primary}
@@ -232,7 +228,12 @@ hook-1 = spotifyctl -q status --format '%artist%: %title%'
 
 [module/weather]
 type = custom/script
-exec = ~/repos/polybar-forecast/polybar-forecast-linux-x86_64
+exec = /home/benm/repos/lib/polybar_forecast/polybar-forecast-linux-x86_64
 exec-if = ping openweathermap.org -c 1
 interval = 600
 label-font = 3
+
+[module/power]
+type = custom/text
+content = "󰐥"
+click-left = exec rofi -show power-menu -modi power-menu:rofi-power-menu -config ~/.config/rofi/rofidmenu.rasi
