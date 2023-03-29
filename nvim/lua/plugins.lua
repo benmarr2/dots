@@ -6,6 +6,7 @@ return {
   'marko-cerovac/material.nvim',
   {'nvim-treesitter/nvim-treesitter', run = ":TSUpdate"},
 
+  "vimwiki/vimwiki",
   --LSP
 {
   'VonHeikemen/lsp-zero.nvim',
