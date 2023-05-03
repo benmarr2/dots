@@ -6,13 +6,25 @@
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
+-- vim.opt.autocmd TextChanged,TextChangedI <buffer> silent write
+-- vim.cmd([[
+--   augroup autosave
+--     autocmd!
+--     autocmd TextChanged,TextChangedI <buffer> silent write
+--   augroup END
+-- ]])
+vim.api.nvim_exec([[
+  augroup autosave
+    autocmd!
+    autocmd TextChanged,TextChangedI <buffer> silent! write
+  augroup END
+]], false)
 
--- general
 lvim.log.level = "info"
 lvim.format_on_save = {
-  enabled = true,
-  pattern = "*.lua",
-  timeout = 1000,
+    enabled = true,
+    pattern = "*.lua",
+    timeout = 1000,
 }
 -- to disable icons and use a minimalist setup, uncomment the following
 -- lvim.use_icons = false
@@ -22,8 +34,8 @@ lvim.leader = "space"
 -- add your own keymapping
 lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 
--- lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
--- lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
+lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
+lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
 -- -- Use which-key to add extra bindings with the leader-key prefix
 -- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
@@ -42,19 +54,19 @@ lvim.builtin.nvimtree.setup.renderer.icons.show.git = false
 lvim.builtin.treesitter.auto_install = true
 
 lvim.plugins = {
-  "vimwiki/vimwiki",
-  "marko-cerovac/material.nvim"
+    "vimwiki/vimwiki",
+    "marko-cerovac/material.nvim"
 }
 
 local material = require 'material'
 local colors = require 'material.colors'
 material.setup {
-  -- Custom colors must be a function that takes in the default colors table as
-  -- a paramter, and then modifies them.
-  -- To see the available colors, see lua/material/colors/init.lua
-  custom_colors = function(colors)
-    colors.editor.bg = "#0d1117"
-  end
+    -- Custom colors must be a function that takes in the default colors table as
+    -- a paramter, and then modifies them.
+    -- To see the available colors, see lua/material/colors/init.lua
+    custom_colors = function(colors)
+        colors.editor.bg = "#0d1117"
+    end
 }
 
 lvim.colorscheme = "material"
