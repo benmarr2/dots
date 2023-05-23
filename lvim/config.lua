@@ -1,18 +1,6 @@
---[[
- THESE ARE EXAMPLE CONFIGS FEEL FREE TO CHANGE TO WHATEVER YOU WANT
- `lvim` is the global options object
-]]
--- vim options
 vim.opt.shiftwidth = 2
 vim.opt.tabstop = 2
 vim.opt.relativenumber = true
--- vim.opt.autocmd TextChanged,TextChangedI <buffer> silent write
--- vim.cmd([[
---   augroup autosave
---     autocmd!
---     autocmd TextChanged,TextChangedI <buffer> silent write
---   augroup END
--- ]])
 vim.api.nvim_exec([[
   augroup autosave
     autocmd!
@@ -26,9 +14,6 @@ lvim.format_on_save = {
     pattern = "*.lua",
     timeout = 1000,
 }
--- to disable icons and use a minimalist setup, uncomment the following
--- lvim.use_icons = false
-
 -- keymappings <https://www.lunarvim.org/docs/configuration/keybindings>
 lvim.leader = "space"
 -- add your own keymapping
@@ -37,14 +22,8 @@ lvim.keys.normal_mode["<C-s>"] = ":w<cr>"
 lvim.keys.normal_mode["<S-l>"] = ":BufferLineCycleNext<CR>"
 lvim.keys.normal_mode["<S-h>"] = ":BufferLineCyclePrev<CR>"
 
--- -- Use which-key to add extra bindings with the leader-key prefix
--- lvim.builtin.which_key.mappings["W"] = { "<cmd>noautocmd w<cr>", "Save without formatting" }
--- lvim.builtin.which_key.mappings["P"] = { "<cmd>Telescope projects<CR>", "Projects" }
 
--- -- Change theme settings
---lvim.colorscheme = "lunar"
-
-lvim.builtin.alpha.active = true
+lvim.builtin.alpha.active = false
 lvim.builtin.alpha.mode = "dashboard"
 lvim.builtin.terminal.active = true
 lvim.builtin.nvimtree.setup.view.side = "left"
@@ -57,13 +36,12 @@ lvim.plugins = {
     "vimwiki/vimwiki",
     "marko-cerovac/material.nvim"
 }
+vim.cmd [[
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+]]
 
 local material = require 'material'
-local colors = require 'material.colors'
 material.setup {
-    -- Custom colors must be a function that takes in the default colors table as
-    -- a paramter, and then modifies them.
-    -- To see the available colors, see lua/material/colors/init.lua
     custom_colors = function(colors)
         colors.editor.bg = "#0d1117"
     end
@@ -71,21 +49,17 @@ material.setup {
 
 lvim.colorscheme = "material"
 
-vim.cmd('set rnu nu')
 vim.cmd('set noswapfile')
 vim.cmd('set tabstop=4')
 vim.cmd('set shiftwidth=4')
 vim.cmd('set expandtab')
-
 
 vim.g.material_style = "deep ocean"
 vim.cmd('colorscheme material')
 vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
-
--- lvim.builtin.treesitter.ignore_install = { "haskell" }
-
+vim.opt.wrap = true
 -- -- always installed on startup, useful for parsers without a strict filetype
 -- lvim.builtin.treesitter.ensure_installed = { "comment", "markdown_inline", "regex" }
 
