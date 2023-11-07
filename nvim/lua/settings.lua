@@ -1,22 +1,13 @@
-vim.opt.shiftwidth = 2
-vim.opt.tabstop = 2
-vim.opt.expandtab = true
-vim.opt.number = true
-vim.opt.relativenumber = true
-vim.opt.ignorecase = true
-vim.opt.termguicolors = true
-vim.opt.scrolloff = 8
-vim.opt.wrap = true
-
+vim.cmd('set rnu nu')
 vim.cmd('set noswapfile')
+vim.cmd('set tabstop=4')
+vim.cmd('set shiftwidth=4')
 vim.cmd('set expandtab')
-vim.cmd('set autochdir')
-vim.cmd('set encoding=utf-8')
 
-vim.g.auto_save = 0
-vim.g.gruvbox_contrast_dark = "hard"
 
-vim.g.vimwiki_markdown_link_ext = 1
-vim.g.vimwiki_ext2syntax = { ['.md'] = 'markdown', ['.markdown'] = 'markdown', ['.mdown'] = 'markdown' }
+vim.g.material_style = "deep ocean"
+vim.cmd('colorscheme material')
+vim.opt.termguicolors = true
 
-vim.cmd([[colorscheme gruvbox]])
+vim.opt.scrolloff = 8
+
