@@ -46,17 +46,20 @@ return{
       },
       init = function() vim.g.barbar_auto_setup = false end,
       opts = {
-        -- lazy.nvim will automatically call setup for you. put your options here, anything missing will use the default:
         -- animation = true,
         -- insert_at_start = true,
         -- …etc.
       },
-      version = '^1.0.0', -- optional: only update when a new 1.x version is released
+      version = '^1.0.0',
     },
     {
         "nvim-telescope/telescope-file-browser.nvim",
-        dependencies = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" }
+        dependencies = { "nvim-telescope/telescope.nvim", 
+                         "nvim-lua/plenary.nvim" }
     },  
+    { 
+      'nvim-telescope/telescope-fzf-native.nvim', build = 'cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release && cmake --install build --prefix build'
+    }, 
     --LSP SUTFF
     {
       'neovim/nvim-lspconfig'
@@ -76,4 +79,12 @@ return{
     {
       'L3MON4D3/LuaSnip'
     },
+    {
+        'numToStr/Comment.nvim',
+        opts = {
+            -- add any options here
+        },
+        lazy = false,
+    }
+
 }
