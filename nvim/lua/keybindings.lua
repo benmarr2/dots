@@ -12,7 +12,8 @@ vim.api.nvim_set_keymap("n", "<C-Left>", "<Cmd>vertical resize +5<CR>", opts)
 vim.api.nvim_set_keymap("n", "<S-w>", "3w", opts)
 vim.api.nvim_set_keymap("n", "<S-e>", "3e", opts)
 
-vim.api.nvim_set_keymap("n", "<Leader>e", "<Cmd>Telescope file_browser theme=ivy<CR>", opts)
 vim.api.nvim_set_keymap("n", "<Leader>fg", "<Cmd>Telescope live_grep theme=ivy<CR>", opts)
 vim.api.nvim_set_keymap("n", "<Leader>fb", "<Cmd>Telescope buffers theme=ivy<CR>", opts)
 vim.api.nvim_set_keymap("n", "<Leader>ff", "<Cmd>Telescope find_files theme=ivy<CR>", opts)
+
+vim.api.nvim_set_keymap("n", "<Leader>e", "<Cmd>Explore<CR>", opts)
