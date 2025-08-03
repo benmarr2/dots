@@ -1,4 +1,4 @@
--- LAZY --
+-- leader should be set before loading lazy
 vim.g.mapleader = " "
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
@@ -13,33 +13,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
--- END LAZY --
+
+local opts = require("opts")
 require("treesitter")
-require("lsp")
-
-require("telescope").setup({
-	extensions = {
-		file_browser = {
-			layout_config = {},
-			theme = "ivy",
-			initial_mode = "normal",
-
-			hijack_netrw = true,
-		},
-	},
-})
-
-require("telescope").load_extension("fzf")
-require("telescope").load_extension("file_browser")
+-- require("telescope").setup()
+-- require("telescope").load_extension("fzf")
 require("settings")
-require("keybindings")
 require("lualine").setup()
-require("Comment").setup()
-require("neoformat")
-
-vim.g.vimwiki_list = { {
-	path = "~/Documents/notes/",
-	syntax = "markdown",
-	ext = ".md",
-} }
-vim.g.vimwiki_ext2syntax = { [".md"] = "markdown", [".markdown"] = "markdown", [".mdown"] = "markdown" }
+require('leap').set_default_mappings()
+require('obsidian').setup(opts.obsidian_opts)
+require("keybindings")

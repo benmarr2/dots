@@ -1,0 +1,12 @@
+2025/08/02-02:24:27.520 437bd Reusing MANIFEST /home/benm/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/MANIFEST-000001
+2025/08/02-02:24:27.520 437bd Recovering log #4
+2025/08/02-02:24:27.520 437bd Reusing old log /home/benm/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/000004.log 
+2025/08/02-19:22:37.599 437be Level-0 table #8: started
+2025/08/02-19:22:37.613 437be Level-0 table #8: 1388679 bytes OK
+2025/08/02-19:22:37.616 437be Delete type=0 #4
+2025/08/02-19:28:08.633 437be Compacting 1@1 + 1@2 files
+2025/08/02-19:28:08.638 437be Generated table #9@1: 415 keys, 57037 bytes
+2025/08/02-19:28:08.638 437be Compacted 1@1 + 1@2 files => 57037 bytes
+2025/08/02-19:28:08.640 437be compacted to: files[ 0 0 1 0 0 0 0 ]
+2025/08/02-19:28:08.640 437be Delete type=2 #5
+2025/08/02-19:28:08.641 437be Delete type=2 #8
