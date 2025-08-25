@@ -78,7 +78,7 @@ element {
 }
 
 element selected {
-  padding: 10 0 0 0; 
+  padding: 0 0 0 0; 
   background-color: @gruvbox-dark-fg1;
   text-color: @gruvbox-dark-bg0-hard;
   vertical-align: 0.5;

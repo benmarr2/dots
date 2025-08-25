@@ -1,3 +1,6 @@
-2025/08/03-03:48:00.735 2d192 Reusing MANIFEST /home/benm/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/MANIFEST-000001
-2025/08/03-03:48:00.735 2d192 Recovering log #7
-2025/08/03-03:48:00.739 2d192 Reusing old log /home/benm/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/000007.log 
+2025/08/24-18:37:36.542 1cbfc Reusing MANIFEST /home/benm/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/MANIFEST-000001
+2025/08/24-18:37:36.542 1cbfc Recovering log #11
+2025/08/24-18:37:36.546 1cbfc Reusing old log /home/benm/.config/obsidian/IndexedDB/app_obsidian.md_0.indexeddb.leveldb/000011.log 
+2025/08/24-20:34:28.510 1cbfd Level-0 table #16: started
+2025/08/24-20:34:28.523 1cbfd Level-0 table #16: 1444526 bytes OK
+2025/08/24-20:34:28.525 1cbfd Delete type=0 #11

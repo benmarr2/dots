@@ -11,6 +11,7 @@ vim.opt.scrolloff        = 8
 vim.opt.wrap             = true
 vim.g.auto_save          = 0
 vim.opt.clipboard        = "unnamedplus"
+vim.opt.colorcolumn      = "120"
 vim.cmd("set noswapfile")
 vim.cmd("set autochdir")
 vim.cmd("set encoding=utf-8")

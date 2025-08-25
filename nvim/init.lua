@@ -16,10 +16,28 @@ require("lazy").setup("plugins")
 
 local opts = require("opts")
 require("treesitter")
--- require("telescope").setup()
--- require("telescope").load_extension("fzf")
+require("telescope").setup()
 require("settings")
 require("lualine").setup()
 require('leap').set_default_mappings()
 require('obsidian').setup(opts.obsidian_opts)
 require("keybindings")
+
+local from_terminal = vim.loop.os_getenv("NVIM_PICKER_PROFILE") == "terminal"
+
+if from_terminal then
+  vim.api.nvim_create_autocmd("FileType", {
+    pattern = "TelescopePrompt",
+    once = true,
+    callback = function(args)
+      vim.schedule(function()
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+          if vim.api.nvim_win_get_buf(win) == args.buf then
+            vim.api.nvim_set_current_win(win)
+            break
+          end
+        end
+      end)
+    end,
+  })
+end
