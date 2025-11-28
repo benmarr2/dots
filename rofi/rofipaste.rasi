@@ -2,7 +2,7 @@ configuration {
   display-drun: "Applications:";
   display-window: "Windows:";
   drun-display-format: "{name}";
-  font: "SauceCodePro Nerd Font 12";
+  font: "SauceCodePro Nerd Font 24";
   modi: "window,run,drun";
   show-icons: true;
   icon-theme: "papirus";
@@ -63,37 +63,30 @@ configuration {
 
 
 window {
-  border: 2px;
-  border-color: @gruvbox-dark-red-light;   /* 🔴 red border */
-  width: 20%;
+  border: 2;
+  width: 70%;
 }
 
 element-text {
   background-color: inherit;
   text-color: inherit;
   vertical-align: 0.5;
+  font-size: 32;
 }
 
-element {
-  padding: 12;
-}
+// element {
+//   padding: 5;
+// }
 
 element selected {
   padding: 0 0 0 0; 
-  background-color: @gruvbox-dark-bg0-hard;
-  text-color: @gruvbox-dark-red-dark;
+  background-color: @gruvbox-dark-fg1;
+  text-color: @gruvbox-dark-bg0-hard;
   vertical-align: 0.5;
-
-}
-
-element-icon {
-  background-color: inherit;
-  padding: 0 10 0 0;
-  size: 30;
 }
 
 entry {
-  padding: 12;
+  padding: 20;
 }
 
 inputbar {
@@ -102,10 +95,10 @@ inputbar {
 
 listview {
   columns: 1;
-  lines: 8;
+  lines: 20;
 }
 
 prompt {
-  enabled: true;
+  enabled: false;
   padding: 12 0 0 12;
 }

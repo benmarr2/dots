@@ -1,0 +1,127 @@
+{
+    "include": [
+      "~/.config/waybar/dividers.jsonc"
+    ],
+    "height": 30,
+    "spacing": 0,
+    "modules-left": [
+        "hyprland/workspaces"
+    ],
+    "modules-center": [
+        "clock#date",
+        "custom/arch-logo",
+        "clock#time",
+        "custom/updates",
+    ],
+    "modules-right": [
+        "tray",
+        "disk",
+        "cpu",
+        "memory",
+        "temperature",
+        "pulseaudio",
+        "custom/power"
+    ],
+"hyprland/workspaces": {
+    "format": "{name} {windows}",
+    "format-window-separator": " ",   // space between app icons
+
+    "on-click": "activate",
+    "on-scroll-up": "hyprctl dispatch workspace e+1",
+    "on-scroll-down": "hyprctl dispatch workspace e-1",
+
+    "all-outputs": false,
+    "active-only": false,
+
+    "window-rewrite-default": "",
+
+    "window-rewrite": {
+        "class<kitty>": "",
+
+        "class<firefox>": "",
+
+        "class<obsidian>": "",
+
+        "class<TickTick>": "",
+        "class<ticktick>": "",
+        "title<.*TickTick.*>": ""
+    }
+},
+
+    "keyboard-state": {
+        "numlock": true,
+        "capslock": true,
+        "format": "{name} {icon}",
+        "format-icons": {
+            "locked": "",
+            "unlocked": ""
+        }
+    },
+    "temperature": {
+        // "thermal-zone": 
+        // "hwmon-path": "/sys/class/hwmon/hwmon2/temp1_input",
+        "critical-threshold": 80,
+        // "format-critical": "{temperatureC}°C {icon}",
+        "format": "{temperatureC}°C {icon}",
+        "format-icons": ["", "", ""]
+    },
+
+    "pulseaudio": {
+        "format": "{volume}% {icon}",
+        "format-muted": " {format_source}",
+        "format-source": "{volume}% ",
+        "format-source-muted": "",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "phone": "",
+            "portable": "",
+            "car": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol"
+    },
+
+    "custom/power": {
+        "format": "⏻ ",
+        "tooltip": false,
+        "on-click": "~/.config/rofi/rofipowermenu.sh"
+    },
+    "clock#date": {
+        "format": "{:%d %m %Y}",
+        "tooltip": false
+    },
+
+    "clock#time": {
+        "format": "{:%H:%M}",   // 24-hour time
+        "tooltip": false
+    },
+
+    "custom/arch-logo": {
+        "format": "",
+        "tooltip": false
+    },
+
+    "cpu": {
+        "format": "{usage}% 󰻠"
+    },
+
+    "memory": {
+        "format": "{percentage}% "
+    },
+
+    "disk": {
+        "path": "/",
+        "format": "{used} / {total} 󰨣"
+    },
+
+    "custom/updates": {
+        "exec": "~/.config/waybar/scripts/updates.sh",
+        "interval": 600,             // check every 10 minutes
+        "return-type": "json",
+        "format": "{}",
+        "tooltip": true,
+        "on-click": "kitty -e ~/.config/waybar/scripts/update.sh"
+    },
+}

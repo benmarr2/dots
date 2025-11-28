@@ -25,9 +25,25 @@ return {
 			"nvim-tree/nvim-web-devicons",
 		}
 	},
-	{
-		"nvim-telescope/telescope.nvim",
-	},
+{
+  "nvim-telescope/telescope.nvim",
+  dependencies = { "nvim-lua/plenary.nvim" },
+  config = function()
+    local telescope = require("telescope")
+    local themes = require("telescope.themes")
+
+    telescope.setup({
+      defaults = themes.get_ivy({
+        layout_strategy = ("bottom_pane"),
+        layout_config = { height = 0.6 },
+      }),
+
+      pickers = {
+        -- find_files = { theme = "dropdown" },
+      },
+    })
+  end,
+},
 	{
 		"elkowar/yuck.vim",
 	},
@@ -156,46 +172,36 @@ return {
   },
 {
   "mikavilpas/yazi.nvim",
-  version = "*", -- use the latest stable version
+  version = "*",
   event = "VeryLazy",
   dependencies = {
     { "nvim-lua/plenary.nvim", lazy = true },
   },
   keys = {
-    -- 👇 in this section, choose your own keymappings!
+    -- your existing keybinding style
     {
-      "<leader>-",
-      mode = { "n", "v" },
+      "<leader>e",
       "<cmd>Yazi<cr>",
-      desc = "Open yazi at the current file",
-    },
-    {
-      -- Open in the current working directory
-      "<leader>cw",
-      "<cmd>Yazi cwd<cr>",
-      desc = "Open the file manager in nvim's working directory",
-    },
-    {
-      "<c-up>",
-      "<cmd>Yazi toggle<cr>",
-      desc = "Resume the last yazi session",
+      desc = "Open yazi file manager",
+      mode = { "n", "v" },
     },
   },
   ---@type YaziConfig | {}
   opts = {
-    -- if you want to open yazi instead of netrw, see below for more info
+    -- core behaviour
     open_for_directories = false,
+    change_neovim_cwd_on_close = true,
+    -- make the float behave like fullscreen & non-fancy
+    floating_window_scaling_factor = 1.0,  -- 100% of the editor
+    yazi_floating_window_border = "none",  -- no rounded border
+    yazi_floating_window_winblend = 0,     -- no transparency
+    yazi_floating_window_zindex = 50,      -- sit “on top” of other floats
+
+    -- optional: keep the default keymaps
     keymaps = {
       show_help = "<f1>",
     },
   },
-  -- 👇 if you use `open_for_directories=true`, this is recommended
-  init = function()
-    -- mark netrw as loaded so it's not loaded at all.
-    --
-    -- More details: https://github.com/mikavilpas/yazi.nvim/issues/802
-    vim.g.loaded_netrwPlugin = 1
-  end,
 },
 
 -- lazy.nvim plugin spec
@@ -239,6 +245,6 @@ return {
     -- See also `vertical_bar_cursor_insert_mode` and `distance_stop_animating_vertical_bar`.
     smear_insert_mode = true,
   },
-}
+ }
 }
 

@@ -41,3 +41,14 @@ if from_terminal then
     end,
   })
 end
+
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+  group = vim.api.nvim_create_augroup("YankHighlight", {}),
+  callback = function()
+    vim.highlight.on_yank({
+      higroup = "IncSearch", -- highlight group
+      timeout = 200,         -- duration in ms
+    })
+  end,
+})

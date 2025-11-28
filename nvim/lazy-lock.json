@@ -8,6 +8,7 @@
   "gitsigns.nvim": { "branch": "main", "commit": "8270378ab83540b03d09c0194ba3e208f9d0cb72" },
   "gruvbox-material": { "branch": "master", "commit": "cf4709418b4066aee67d9c0bfaa1b0d631ce68a5" },
   "lazy.nvim": { "branch": "main", "commit": "6c3bda4aca61a13a9c63f1c1d1b16b9d3be90d7a" },
+  "lazyclip": { "branch": "main", "commit": "ca1f9b747a98d7ed6a02ad7a24d186b1d82300c5" },
   "leap.nvim": { "branch": "main", "commit": "ebaf38f7fd7193cc918c10eb955afed63301cd76" },
   "lualine.nvim": { "branch": "master", "commit": "a94fc68960665e54408fe37dcf573193c4ce82c9" },
   "mason-lspconfig.nvim": { "branch": "main", "commit": "844d247d998c2f9a6a3baad8bb9748edc55ce69f" },
