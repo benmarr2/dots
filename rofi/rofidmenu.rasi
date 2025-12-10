@@ -63,8 +63,9 @@ configuration {
 
 
 window {
-  border: 2;
-  width: 20%;
+  width: 100%;
+  location: north;
+  children: [entry, listview];
 }
 
 element-text {
@@ -74,36 +75,43 @@ element-text {
 }
 
 element {
-  padding: 12;
+  padding: 6 10;
 }
 
 element selected {
-  padding: 10 0 0 0; 
-  background-color: @gruvbox-dark-fg1;
-  text-color: @gruvbox-dark-bg0-hard;
+  padding: 6 10;
+  background-color: @gruvbox-dark-bg0-hard;
+  text-color: @gruvbox-green;
+  vertical-align: 0.5;
+}
+
+element-text {
+  background-color: inherit;
+  text-color: inherit;
   vertical-align: 0.5;
 }
 
 element-icon {
-  background-color:inherit;
+  background-color: inherit;
   padding: 0 10 0 0;
-  size: 30;
+  size: 20;
 }
 
 entry {
-  padding: 12;
+  enabled: false;
+  padding: 6 10;
+  expand: false;
 }
 
-inputbar {
-  children: [prompt, entry];
-}
 
 listview {
-  columns: 1;
-  lines: 8;
+  columns: 12;
+  lines: 1;
+  cycle: false;
+  dynamic: false;
 }
 
 prompt {
-  enabled: true;
-  padding: 12 0 0 12;
+  enabled: false;
+  padding: 6 10;
 }

@@ -10,12 +10,14 @@ font pango:SauceCodePro Nerd Font Mono 10
 floating_modifier $mod
 
 # start a terminal
-bindsym $mod+Return exec kitty
+bindsym $mod+Return exec wezterm
+bindsym $mod+Shift+Return exec wezterm start -- tmux attach || tmux
 
 # kill focused window
 bindsym $mod+q kill
 
 bindsym $mod+w exec firefox
+bindsym $mod+y exec wezterm -e yazi
 
 # start dmenu (a program launcher)
 # bindsym $mod+d exec dmenu_run
@@ -29,9 +31,9 @@ workspace 2 output HDMI-0
 workspace 3 output HDMI-0
 workspace 4 output HDMI-0
 workspace 5 output HDMI-0
-workspace 6 output DP-4
-workspace 7 output DP-4
-workspace 8 output DP-4
+workspace 6 output HDMI-0
+workspace 7 output HDMI-0
+workspace 8 output HDMI-1
 workspace 9 output HDMI-1
 workspace 10 output HDMI-1
 
@@ -71,6 +73,7 @@ bindsym $mod+Shift+space floating toggle
 
 # change focus between tiling / floating windows
 bindsym $mod+space focus mode_toggle
+
 
 # focus the parent container
 #bindsym $mod+a focus parent
@@ -131,14 +134,12 @@ bindcode $mod+Shift+Mod2+90 	move container to workspace  10
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
 bindsym $mod+Shift+r restart
-# exit i3 (logs you out of your X session)
-bindsym $mod+Shift+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
 
 mode "resize" {
-        bindsym j resize shrink width 10 px or 10 ppt
+        bindsym h resize shrink width 10 px or 10 ppt
         bindsym k resize grow height 10 px or 10 ppt
         bindsym l resize shrink height 10 px or 10 ppt
-        bindsym semicolon resize grow width 10 px or 10 ppt
+        bindsym l resize grow width 10 px or 10 ppt
 
         # same bindings, but for the arrow keys
         bindsym Left resize shrink width 10 px or 10 ppt
@@ -158,13 +159,14 @@ bindsym $mod+r mode "resize"
 #bar {status_command i3status}
 
 # Startup
+exec --no-startup-id xfsettingsd
 exec --no-startup-id picom -b
 exec_always --no-startup-id feh --bg-scale ~/Pictures/otherworldly_earth_nasa_ISS064-E-29444.jpg
 
 ## Polybar
 
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
-exec_always --no-startup-id $HOME/.screenlayout/3_monitors_tv_primary.sh
+exec_always --no-startup-id $HOME/.screenlayout/2_monitors_tv_primary.sh
 bindsym $mod+Shift+m exec --no-startup-id ~/.config/i3/screenlayout_launcher.sh
 
 # Disable screen power off bullshit 
@@ -187,11 +189,11 @@ default_border pixel
 default_floating_border pixel
 
 # Optional: color active window border (Gruvbox green)
-client.focused          #98971a #98971a #98971a #98971a
-client.focused_inactive #3c3836 #3c3836 #3c3836 #3c3836
-client.unfocused        #3c3836 #3c3836 #3c3836 #3c3836
-client.urgent           #cc241d #cc241d #cc241d #cc241d
-client.placeholder      #3c3836 #3c3836 #3c3836 #3c3836
+client.focused          #98971a #98971a #282828 #98971a
+client.focused_inactive #282828 #282828 #a89984 #282828
+client.unfocused        #282828 #282828 #a89984 #282828
+client.urgent           #cc241d #1d2021 #fbf1c7 #cc241d
+client.placeholder      #3c3836 #282828 #a89984 #282828
 
 # Rofi
 bindsym $mod+d exec rofi -show drun \
@@ -201,7 +203,10 @@ bindsym $mod+Shift+P exec --no-startup-id \
     /usr/bin/rofi \
       -show power-menu \
       -modi power-menu:/home/benm/.local/bin/rofi-power-menu \
-      -theme /home/benm/.config/rofi/rofidmenu.rasi
+      -theme /home/benm/.config/rofi/rofipowermenu.rasi
+
+
+bindsym $mod+v exec --no-startup-id "CM_LAUNCHER=rofi clipmenu -theme /home/benm/.config/rofi/rofipaste.rasi"
 
 #Flameshot
 bindsym $mod+Shift+s exec flameshot gui

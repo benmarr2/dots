@@ -1,0 +1,58 @@
+session_name: '0'
+windows:
+- layout: 2490,376x92,0,0{94x92,0,0[94x46,0,0,4,94x45,0,47,11],93x92,95,0[93x46,95,0,9,93x45,95,47,10],93x92,189,0[93x46,189,0,5,93x45,189,47,8],93x92,283,0[93x46,283,0,6,93x45,283,47,7]}
+  options: {}
+  panes:
+  - shell_command:
+    - cd /home/benm/Documents/Notes
+    - ping
+  - shell_command:
+    - cd /home/benm/Documents/Notes/03_Resources
+    - nvim
+  - shell_command:
+    - cd /home/benm/Documents/Notes/01_Projects
+    - nvim
+  - shell_command:
+    - cd /home/benm/Documents/Notes/01_Projects
+    - nvim
+  - shell_command:
+    - cd /home/benm/Documents/Notes
+    - bash
+  - focus: 'true'
+    shell_command:
+    - cd /home/benm/repos/AudioAura/src
+    - nvim
+  - shell_command:
+    - cd /home/benm/repos/displayflow
+    - nvim
+  - shell_command:
+    - cd /home/benm/repos/displayflow/src-tauri/src
+    - nvim
+  window_name: notes
+- focus: 'true'
+  layout: aed9,376x92,0,0{188x92,0,0,1,93x92,189,0,12,46x92,283,0,13,46x92,330,0[46x46,330,0,14,46x22,330,47,15,46x22,330,70{23x22,330,70,16,22x22,354,70,17}]}
+  options: {}
+  panes:
+  - pane
+  - bash
+  - bash
+  - bash
+  - bash
+  - bash
+  - bash
+  start_directory: /home/benm
+  window_name: displayflow-frontend
+- layout: c17f,376x92,0,0,2
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: bash
+  start_directory: /home/benm
+  window_name: displayflowbackend
+- layout: c180,376x92,0,0,3
+  options: {}
+  panes:
+  - focus: 'true'
+    shell_command: bash
+  start_directory: /home/benm
+  window_name: bash

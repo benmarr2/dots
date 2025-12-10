@@ -1,0 +1,202 @@
+[
+  {
+    "output": "HDMI-A-1",
+    "include": [
+      "~/.config/waybar/dividers.jsonc"
+    ],
+    "height": 30,
+    "spacing": 0,
+    "modules-left": [
+      "hyprland/workspaces"
+    ],
+    "modules-center": [
+      "clock#date",
+      "custom/arch-logo",
+      "clock#time",
+      "custom/updates"
+    ],
+    "modules-right": [
+      "tray",
+      "disk",
+      "cpu",
+      "memory",
+      "temperature",
+      "pulseaudio",
+      "custom/power"
+    ],
+
+    "hyprland/workspaces": {
+      "format": "{name} {windows}",
+      "format-window-separator": " ",
+      "on-click": "activate",
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "all-outputs": false,
+      "active-only": false,
+      "window-rewrite-default": "",
+      "window-rewrite": {
+        "class<kitty>": "",
+        "class<firefox>": "",
+        "class<obsidian>": "",
+        "class<TickTick>": "",
+        "class<ticktick>": "",
+        "title<.*TickTick.*>": "",
+        "class<steam>": "󰓓",
+        "class<discord>": "",
+        "class<zathura>": "",
+        "class<aseprite>": "",
+        "class<tiled>": "",
+        "class<org.mapeditor.tiled>": "",
+        "class<krita>": "",
+        "class<org.pulseaudio.pavucontrol>": "",
+        "class<spotify>": "󰓇",
+      }
+    },
+
+    "keyboard-state": {
+      "numlock": true,
+      "capslock": true,
+      "format": "{name} {icon}",
+      "format-icons": {
+        "locked": "",
+        "unlocked": ""
+      }
+    },
+
+    "temperature": {
+      "critical-threshold": 80,
+      "format": "{temperatureC}°C {icon}",
+      "format-icons": [
+        "",
+        "",
+        ""
+      ]
+    },
+
+    "pulseaudio": {
+      "format": "{volume}% {icon}",
+      "format-muted": " {format_source}",
+      "format-source": "{volume}% ",
+      "format-source-muted": "",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "on-click": "pavucontrol"
+    },
+
+    "custom/power": {
+      "format": "⏻ ",
+      "tooltip": false,
+      "on-click": "~/.config/rofi/rofipowermenu.sh"
+    },
+
+    "clock#date": {
+      "format": "{:%d %m %Y}",
+      "tooltip": false
+    },
+
+    "clock#time": {
+      "format": "{:%H:%M}",
+      "tooltip": false
+    },
+
+    "custom/arch-logo": {
+      "format": "",
+      "tooltip": false
+    },
+
+    "cpu": {
+      "format": "{usage}% 󰻠"
+    },
+
+    "memory": {
+      "format": "{percentage}% "
+    },
+
+    "disk": {
+      "path": "/",
+      "format": "{used} / {total} 󰨣"
+    },
+
+    "custom/updates": {
+      "exec": "~/.config/waybar/scripts/updates.sh",
+      "interval": 600,
+      "return-type": "json",
+      "format": "{}",
+      "tooltip": true,
+      "on-click": "kitty -e ~/.config/waybar/scripts/update.sh"
+    }
+  },
+
+  {
+    "output": "HDMI-A-2",
+    "height": 30,
+    "spacing": 0,
+    "modules-left": [
+      "hyprland/workspaces"
+    ],
+    "modules-center": [
+      "clock#time",
+    ],
+    "modules-right": [
+      "pulseaudio",
+      "custom/power"
+    ],
+
+    "hyprland/workspaces": {
+      "format": "{name} {windows}",
+      "format-window-separator": " ",
+      "on-click": "activate",
+      "on-scroll-up": "hyprctl dispatch workspace e+1",
+      "on-scroll-down": "hyprctl dispatch workspace e-1",
+      "all-outputs": false,
+      "active-only": false,
+      "window-rewrite-default": "",
+      "window-rewrite": {
+        "class<kitty>": "",
+        "class<firefox>": "",
+        "class<obsidian>": "",
+        "class<TickTick>": "",
+        "class<ticktick>": "",
+        "title<.*TickTick.*>": ""
+      }
+    },
+
+    "pulseaudio": {
+      "format": "{volume}% {icon}",
+      "format-muted": " {format_source}",
+      "format-source": "{volume}% ",
+      "format-source-muted": "",
+      "format-icons": {
+        "headphone": "",
+        "hands-free": "",
+        "headset": "",
+        "phone": "",
+        "portable": "",
+        "car": "",
+        "default": [
+          "",
+          "",
+          ""
+        ]
+      },
+      "on-click": "pavucontrol"
+    },
+
+    "custom/power": {
+      "format": "⏻ ",
+      "tooltip": false,
+      "on-click": "~/.config/rofi/rofipowermenu.sh"
+    }
+  }
+]

@@ -13,7 +13,7 @@ M.obsidian_opts = {
     template = "daily.md",
   },
   templates = {
-    folder = "05_Templates",
+    folder = "04_Templates",
   },
 }
 
