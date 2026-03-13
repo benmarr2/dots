@@ -16,13 +16,13 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 require("lazy").setup("plugins")
+require("dap_csharp")
 
 local opts = require("opts")
 require("treesitter")
 require("telescope").setup()
 require("settings")
 require("lualine").setup()
-require("leap").set_default_mappings()
 require("obsidian").setup(opts.obsidian_opts)
 
 require("conform").setup({
@@ -33,6 +33,7 @@ require("conform").setup({
 		javascript = { "prettierd", "prettier", stop_after_first = true },
 		c = { "clang_format" },
 		cpp = { "clang_format" },
+		cs = { "csharpier" },
 	},
 })
 require("keybindings")
@@ -104,7 +105,6 @@ require("telescope").setup({
 		},
 	},
 })
-require("spectre").setup()
 
 local orig_signs = vim.diagnostic.handlers.signs
 
@@ -159,3 +159,5 @@ vim.keymap.set("n", "gt", function()
 	end
 	vim.cmd("tabedit " .. vim.fn.fnameescape(file))
 end, { desc = "Open file under cursor in new tab" })
+
+require("telescope").load_extension("dap")

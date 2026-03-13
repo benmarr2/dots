@@ -25,6 +25,15 @@ return {
 			"lewis6991/gitsigns.nvim",
 			"nvim-tree/nvim-web-devicons",
 		},
+		init = function()
+			vim.g.barbar_auto_setup = false
+		end,
+		opts = {
+			icons = {
+				preset = "default",
+				separator = { left = "", right = "" },
+			},
+		},
 	},
 	{
 		"nvim-telescope/telescope.nvim",
@@ -52,9 +61,6 @@ return {
 		"sainnhe/gruvbox-material",
 	},
 	{
-		"ggandor/leap.nvim",
-	},
-	{
 		"epwalsh/obsidian.nvim",
 		version = "*", -- use latest release
 		lazy = true,
@@ -68,7 +74,12 @@ return {
 		"williamboman/mason.nvim",
 		build = ":MasonUpdate",
 		config = function()
-			require("mason").setup()
+			require("mason").setup({
+				registries = {
+					"github:mason-org/mason-registry",
+					"github:Crashdummyy/mason-registry",
+				},
+			})
 		end,
 	},
 
@@ -87,7 +98,36 @@ return {
 	{
 		"neovim/nvim-lspconfig",
 		config = function()
-			local lspconfig = require("lspconfig")
+			local function has_attached_lsp(bufnr)
+				return not vim.tbl_isempty(vim.lsp.get_clients({ bufnr = bufnr }))
+			end
+
+			local function lsp_definition()
+				local bufnr = vim.api.nvim_get_current_buf()
+				if not has_attached_lsp(bufnr) then
+					vim.notify("No LSP is attached to this buffer", vim.log.levels.WARN)
+					return
+				end
+				vim.lsp.buf.definition()
+			end
+
+			local function lsp_hover()
+				local bufnr = vim.api.nvim_get_current_buf()
+				if has_attached_lsp(bufnr) then
+					vim.lsp.buf.hover()
+					return
+				end
+				vim.notify("No LSP is attached to this buffer", vim.log.levels.WARN)
+			end
+
+			local function lsp_signature_help()
+				local bufnr = vim.api.nvim_get_current_buf()
+				if not has_attached_lsp(bufnr) then
+					vim.notify("No LSP is attached to this buffer", vim.log.levels.WARN)
+					return
+				end
+				vim.lsp.buf.signature_help()
+			end
 
 			local function set_float_highlights()
 				vim.api.nvim_set_hl(0, "NormalFloat", { bg = "none" })
@@ -95,9 +135,7 @@ return {
 			end
 
 			set_float_highlights()
-			vim.api.nvim_create_autocmd("ColorScheme", {
-				callback = set_float_highlights,
-			})
+			vim.api.nvim_create_autocmd("ColorScheme", { callback = set_float_highlights })
 
 			local float_opts = {
 				border = "single",
@@ -105,35 +143,43 @@ return {
 				max_height = 20,
 			}
 
-			vim.diagnostic.config({
-				float = float_opts,
-			})
-
+			vim.diagnostic.config({ float = float_opts })
 			vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, float_opts)
 			vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, float_opts)
 
 			vim.o.updatetime = 250
 
-			local on_attach = function(_, bufnr)
-				local opts = { buffer = bufnr, remap = false }
+			vim.keymap.set("n", "gd", lsp_definition, { noremap = true, silent = true, desc = "LSP: go to definition" })
+			vim.keymap.set("n", "K", lsp_hover, { noremap = true, silent = true, desc = "LSP: hover" })
+			vim.keymap.set(
+				"n",
+				"<C-k>",
+				lsp_signature_help,
+				{ noremap = true, silent = true, desc = "LSP: signature help" }
+			)
 
-				vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-				vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-				vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
+			local function lsp_keymaps(bufnr)
+				local opts = { buffer = bufnr, noremap = true, silent = true }
 				vim.keymap.set("n", "<leader>ln", vim.lsp.buf.rename, opts)
-
-				-- Show diagnostics for the current line only when you press "?"
 				vim.keymap.set("n", "?", function()
 					vim.diagnostic.open_float(nil, { focusable = true })
 				end, opts)
 			end
 
+			vim.api.nvim_create_autocmd("LspAttach", {
+				callback = function(args)
+					lsp_keymaps(args.buf)
+				end,
+			})
+
 			local caps = vim.lsp.protocol.make_client_capabilities()
 			caps = require("cmp_nvim_lsp").default_capabilities(caps)
 
-			lspconfig.pyright.setup({ on_attach = on_attach, capabilities = caps })
-			lspconfig.clangd.setup({ on_attach = on_attach, capabilities = caps })
-			lspconfig.bashls.setup({ on_attach = on_attach, capabilities = caps })
+			vim.lsp.config("pyright", { capabilities = caps })
+			vim.lsp.config("clangd", { capabilities = caps })
+			vim.lsp.config("bashls", { capabilities = caps })
+			vim.lsp.enable({ "pyright", "clangd", "bashls" })
+			vim.lsp.enable("omnisharp", false)
 		end,
 	},
 	{
@@ -167,14 +213,14 @@ return {
 				window = {
 					completion = cmp.config.window.bordered({
 						border = "single",
-						max_width = 60,
+						max_width = math.floor(vim.o.columns * 0.4),
 						max_height = 15,
 						winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:CmpPmenuSel,Search:None",
 					}),
 					documentation = cmp.config.window.bordered({
 						border = "single",
-						max_width = 80,
-						max_height = 20,
+						max_width = math.floor(vim.o.columns * 0.4),
+						max_height = 15,
 						winhighlight = "Normal:CmpPmenu,FloatBorder:CmpPmenuBorder,CursorLine:CmpPmenuSel,Search:None",
 					}),
 				},
@@ -206,35 +252,12 @@ return {
 						-- Set the menu "icon" to the shorthand for each completion source.
 						item.menu = menu_icon[entry.source.name]
 
-						-- Set the fixed width of the completion menu to 60 characters.
-						-- fixed_width = 20
-
-						-- Set 'fixed_width' to false if not provided.
-						fixed_width = fixed_width or false
-
-						-- Get the completion entry text shown in the completion window.
+						local max_abbr = 30
 						local content = item.abbr
-
-						-- Set the fixed completion window width.
-						if fixed_width then
-							vim.o.pumwidth = fixed_width
-						end
-
-						-- Get the width of the current window.
-						local win_width = vim.api.nvim_win_get_width(0)
-
-						-- Set the max content width based on either: 'fixed_width'
-						-- or a percentage of the window width, in this case 20%.
-						-- We subtract 10 from 'fixed_width' to leave room for 'kind' fields.
-						local max_content_width = fixed_width and fixed_width - 10 or math.floor(win_width * 0.2)
-
-						-- Truncate the completion entry text if it's longer than the
-						-- max content width. We subtract 3 from the max content width
-						-- to account for the "..." that will be appended to it.
-						if #content > max_content_width then
-							item.abbr = vim.fn.strcharpart(content, 0, max_content_width - 3) .. "..."
+						if #content > max_abbr then
+							item.abbr = vim.fn.strcharpart(content, 0, max_abbr - 3) .. "..."
 						else
-							item.abbr = content .. (" "):rep(max_content_width - #content)
+							item.abbr = content .. (" "):rep(max_abbr - #content)
 						end
 						return item
 					end,
@@ -337,23 +360,10 @@ return {
 		"sphamba/smear-cursor.nvim",
 
 		opts = {
-			-- Smear cursor when switching buffers or windows.
 			smear_between_buffers = true,
-
-			-- Smear cursor when moving within line or to neighbor lines.
-			-- Use `min_horizontal_distance_smear` and `min_vertical_distance_smear` for finer control
 			smear_between_neighbor_lines = true,
-
-			-- Draw the smear in buffer space instead of screen space when scrolling
 			scroll_buffer_space = true,
-
-			-- Set to `true` if your font supports legacy computing symbols (block unicode symbols).
-			-- Smears will blend better on all backgrounds.
 			legacy_computing_symbols_support = false,
-
-			-- Smear cursor in insert mode.
-			-- See also `vertical_bar_cursor_insert_mode` and `distance_stop_animating_vertical_bar`.
-			smear_insert_mode = true,
 		},
 	},
 	{
@@ -361,6 +371,49 @@ return {
 		opts = {},
 	},
 	{
-		"nvim-pack/nvim-spectre",
+		"mfussenegger/nvim-dap",
+		dependencies = {
+			"rcarriga/nvim-dap-ui",
+			"nvim-neotest/nvim-nio",
+		},
+		config = function()
+			local dap = require("dap")
+			local dapui = require("dapui")
+
+			dapui.setup()
+
+			dap.listeners.after.event_initialized["dapui_config"] = function()
+				dapui.open()
+			end
+			dap.listeners.before.event_terminated["dapui_config"] = function()
+				dapui.close()
+			end
+			dap.listeners.before.event_exited["dapui_config"] = function()
+				dapui.close()
+			end
+		end,
+	},
+	{
+		"nvim-telescope/telescope-dap.nvim",
+		dependencies = {
+			"nvim-telescope/telescope.nvim",
+			"mfussenegger/nvim-dap",
+		},
+	},
+	{
+		"seblyng/roslyn.nvim",
+		---@module 'roslyn.config'
+		---@type RoslynNvimConfig
+		opts = {},
+		config = function(_, opts)
+			local caps = vim.lsp.protocol.make_client_capabilities()
+			caps = require("cmp_nvim_lsp").default_capabilities(caps)
+
+			vim.lsp.config("roslyn", {
+				capabilities = caps,
+			})
+
+			require("roslyn").setup(opts)
+		end,
 	},
 }

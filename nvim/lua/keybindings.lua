@@ -101,19 +101,6 @@ vim.api.nvim_create_autocmd("BufWritePre", {
 	end,
 })
 
-vim.api.nvim_set_keymap("n", "<leader>r", '<cmd>lua require("spectre").toggle()<CR>', {
-	desc = "Toggle Spectre",
-})
-vim.api.nvim_set_keymap("n", "<leader>rw", '<cmd>lua require("spectre").open_visual({select_word=true})<CR>', {
-	desc = "Search current word",
-})
-vim.api.nvim_set_keymap("v", "<leader>rw", '<esc><cmd>lua require("spectre").open_visual()<CR>', {
-	desc = "Search current word",
-})
-vim.api.nvim_set_keymap("n", "<leader>rp", '<cmd>lua require("spectre").open_file_search({select_word=true})<CR>', {
-	desc = "Search on current file",
-})
-
 local builtin = require("telescope.builtin")
 
 local ivy = { theme = "ivy" }

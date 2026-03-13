@@ -1,3 +1,4 @@
+---@diagnostic disable: undefined-global
 -- ────────────────────────────────────────────────────────────────────────────
 --  Basic options (yours)
 vim.opt.shiftwidth = 2
@@ -20,14 +21,31 @@ vim.cmd("set nohlsearch")
 
 -- ────────────────────────────────────────────────────────────────────────────
 --  Colourscheme
+vim.o.termguicolors = true
 vim.o.background = "dark"
+
 vim.g.gruvbox_material_background = "hard"
 vim.g.gruvbox_material_foreground = "original"
 vim.g.gruvbox_material_enable_italic = true
 vim.g.gruvbox_material_better_performance = 1
 vim.g.gruvbox_material_transparent_background = 1
-vim.cmd.colorscheme("gruvbox-material")
 
+local function apply_barbar_hl()
+	local set = vim.api.nvim_set_hl
+	local fg = "#1d2021" -- dark0 hard
+	local bg = "#ebdbb2" -- light0 hard
+
+	set(0, "BufferCurrent", { fg = fg, bg = bg, bold = true })
+	set(0, "BufferCurrentMod", { fg = fg, bg = bg, bold = true })
+	set(0, "BufferCurrentIcon", { bg = bg })
+end
+
+vim.api.nvim_create_autocmd("ColorScheme", {
+	callback = apply_barbar_hl,
+})
+
+vim.cmd.colorscheme("gruvbox-material")
+apply_barbar_hl()
 -- ────────────────────────────────────────────────────────────────────
 --  Netrw configuration
 vim.g.netrw_banner = 0 -- no intro text
